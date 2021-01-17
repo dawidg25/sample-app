@@ -7,6 +7,23 @@ router.use(bodyParser.json());
 
 const Posts = require('./Posts');
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    //HIDING UNNECESERY FIELDS
+    const postProjection = {
+        _id: false,
+    };
+    Posts.find({id: id}, postProjection).then(doc => {
+        let ret = {
+            status: 200,
+            document: doc
+        };
+
+        res.status(200).json(ret);
+    }).catch(err => console.log(err));
+});
+
 router.get('/', (req, res) => {
     //PAGE AND LIMIT
     const defaultLimit = 15;
@@ -26,7 +43,7 @@ router.get('/', (req, res) => {
         skip = limit * (page - 1);
     }
 
-    //HIDING UNNECESARY FIELDS
+    //HIDING UNNECESERY FIELDS
     const postsProjection = {
         _id: false,
         body: false
@@ -49,5 +66,7 @@ router.get('/', (req, res) => {
         console.log(err);
     });
 });
+
+
 
 module.exports = router;

@@ -1,0 +1,30 @@
+@import '../../../manifest.scss';
+nav {
+    margin-top: 35px;
+    text-align: center;
+
+    span {
+        display: inline-block;
+        min-width: 20px;
+        padding: 5px;
+        color: #fff;
+        background: $leadingColor;
+        cursor: pointer;
+        margin: 0 5px;
+        border: 1px solid transparent;
+        transition: all .1s ease-in-out;
+        border-radius: $borderRadius;
+
+        &.active,
+        &:hover {
+            border-color: $leadingColor;
+            background-color: transparent;
+            color: $leadingColor;
+            transition: all .1s ease-in-out;
+        }
+
+        &.active {
+            cursor: auto;
+        }
+    }
+}

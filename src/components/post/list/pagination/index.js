@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './style.scss';
 
 export default function PostPagination(props) {
     const limit = props.limit;
@@ -15,7 +16,7 @@ export default function PostPagination(props) {
             pages.push(<SinglePage key={i} number={i} limit={limit} isActualPage={isActualPage} />);
         }
 
-        return pages;
+        return <nav>{pages}</nav>;
     }
 
     function SinglePage(props) {

@@ -7,6 +7,23 @@ router.use(bodyParser.json());
 
 const Posts = require('./Posts');
 
+router.put('/:id', (req, res) => {
+    const id = req.body.id;
+    const title = req.body.title;
+    const body = req.body.body;
+
+    Posts.findOneAndUpdate({id: id}, {
+        title: title,
+        body: body
+    }).then(doc => {
+        let ret = {
+            status: 1,
+            message: 'Updated successfully'
+        }
+        res.status(200).json(ret);
+    }).catch(err => console.log(err));
+});
+
 router.get('/:id', (req, res) => {
     const id = req.params.id;
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import './style.scss';
 export default function PostEdit(props) {
@@ -5,8 +6,20 @@ export default function PostEdit(props) {
         props.showSetter(false);
     }
 
-    function updateHandler() {
+    function updateHandler(id) {
+        const updatedFields = {
+            id: id,
+            title: document.querySelector('input[name=title]').value,
+            body: document.querySelector('textarea[name=body]').value        
+        };
 
+        axios.put(`/posts/${id}`, updatedFields).then(res => {
+            if (res.data.status) {
+                const updatedItem = document.querySelector(`.item[data-id='${id}']`);
+                updatedItem.querySelector('h3').innerHTML = updatedFields.title;
+            }
+            props.showSetter(false);
+        });
     }
     return (
         <div className='post-edit'>
@@ -15,16 +28,16 @@ export default function PostEdit(props) {
                 <form>
                     <label>
                         Title:
-                        <input defaultValue={props.postData.title} />
+                        <input type='text' name='title' defaultValue={props.postData.title} />
                     </label>
                     <label>
                         Content:
-                        <textarea>{props.postData.body}</textarea>
+                        <textarea name='body' defaultValue={props.postData.body}></textarea>
                     </label>
                 </form>
                 <div className='action'>
                     <button className='cancel' onClick={cancelHandler}>Cancel</button>
-                    <button className='update' onClick={updateHandler}>Update</button>
+                    <button className='update' onClick={e => updateHandler(props.postData.id)}>Update</button>
                 </div>
             </div>
         </div>

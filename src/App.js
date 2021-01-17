@@ -4,7 +4,7 @@ import MainPage from './components/index';
 
 function App() {
   return (
-    <div class='main'>
+    <div className='main'>
       <Header heading='Sample App'/>
       <MainPage />
     </div>

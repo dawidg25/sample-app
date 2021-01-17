@@ -13,7 +13,7 @@ require('./db');
 
 const PostsController = require('./api/posts/PostsController');
 
-app.use('posts', PostsController);
+app.use('/posts', PostsController);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
